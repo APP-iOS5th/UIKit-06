@@ -70,3 +70,29 @@ if let spouseTempVar = spouseName {
 }
 
 
+let myRange = 10...20
+let myRange2 = 10..<20
+
+for number in myRange {
+    print(number)
+}
+
+for number in myRange2 {
+    print(number)
+}
+
+for number in (0...5).reversed() {
+    print(number)
+}
+
+var y = 50
+while y < 50 {
+    y += 5
+    print("y is \(y)")
+}
+
+var x = 50
+repeat {
+    x += 5
+    print("x is \(x)")
+} while x < 50
