@@ -95,7 +95,7 @@ while y < 50 {
 //    x += 5
 //    print("x is \(x)")
 //} while x < 50
-print("-----------------------")
+print("-----------Array------------")
 
 var shoppingList = ["Egg", "Milk"]
 
@@ -109,3 +109,21 @@ shoppingList.remove(at: 1)
 let removeElement = shoppingList.removeLast()
 
 print("remove: \(removeElement)")
+
+print("-----------Dictionary------------")
+
+var contactList = ["Shah": "+6012345456789", "Aamir": "+02234546789"]
+print(contactList.count)
+print(contactList.isEmpty)
+
+contactList["Jane"] = "+0229876543"
+print(contactList["Shah"] ?? "No Value")
+
+var oldDictValue = contactList.removeValue(forKey: "Aamir")
+print(oldDictValue ?? "No Value")
+print(contactList.count)
+
+for (name, contactNumber) in contactList {
+    print("\(name): \(contactNumber)")
+}
+
