@@ -18,13 +18,19 @@ class Animal {
 }
 
 class Mammal: Animal {
-    let hasFurOrHair: Bool = true
+    let hasFurOrHair: Bool
+    
+    init(hasFurOrHair: Bool, name: String, sound: String, numberOfLegs: Int) {
+        self.hasFurOrHair = hasFurOrHair
+        super.init(name: name, sound: sound, numberOfLegs: 4, breathesOxygen: true)
+    }
+    
     override func description() -> String {
         return super.description() + "\nhasFurOrHair: \(self.hasFurOrHair)"
     }
 }
 
-let cat = Mammal(name: "Cat", sound: "Mew", numberOfLegs: 4, breathesOxygen: true)
+let cat = Mammal(hasFurOrHair: true, name: "Cat", sound: "Mew", numberOfLegs: 4)
 print(cat.description())
 
 //var numbersArray = [2, 4, 6, 7]
