@@ -1,26 +1,44 @@
 
-func serviceCharge() {
-    let mealCost = 50
-    let serviceCharge = mealCost / 10
-    print("Service charge is \(serviceCharge)")
+func calculateMonthlyPayments(carPrice: Double, downPayment: Double,
+                              interestRate: Double, paymentTerm: Double) -> Double {
+    func loanAmount() -> Double {
+        return carPrice - downPayment
+    }
+    func totalInterest() -> Double {
+        return interestRate * paymentTerm
+    }
+    func numberOfMonths() -> Double {
+        return paymentTerm * 12
+    }
+    return ((loanAmount() + (loanAmount() * totalInterest() / 100)) / numberOfMonths())
 }
 
-serviceCharge()
 
-func serviceCharge(mealCost: Int) -> Int {
-    return mealCost / 10
-}
+calculateMonthlyPayments(carPrice: 50000, downPayment: 5000, interestRate: 3.5, paymentTerm: 7)
 
-let serviceChargeAmount = serviceCharge(mealCost: 50)
-print(serviceChargeAmount)
 
-// custom argument label
-func serviceCharge(_ mealCost: Int) -> Int {
-    return mealCost / 10
-}
-
-let serviceChargeAmount2 = serviceCharge(50)
-print(serviceChargeAmount2)
+//func serviceCharge() {
+//    let mealCost = 50
+//    let serviceCharge = mealCost / 10
+//    print("Service charge is \(serviceCharge)")
+//}
+//
+//serviceCharge()
+//
+//func serviceCharge(mealCost: Int) -> Int {
+//    return mealCost / 10
+//}
+//
+//let serviceChargeAmount = serviceCharge(mealCost: 50)
+//print(serviceChargeAmount)
+//
+//// custom argument label
+//func serviceCharge(_ mealCost: Int) -> Int {
+//    return mealCost / 10
+//}
+//
+//let serviceChargeAmount2 = serviceCharge(50)
+//print(serviceChargeAmount2)
 
 
 
