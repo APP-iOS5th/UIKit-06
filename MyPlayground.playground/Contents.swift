@@ -127,3 +127,26 @@ for (name, contactNumber) in contactList {
     print("\(name): \(contactNumber)")
 }
 
+print("-----------Set------------")
+
+var movieGenres: Set = ["Horror", "Action", "Romantic Comedy"]
+
+print(movieGenres.count)
+print(movieGenres.isEmpty)
+
+movieGenres.insert("War")
+movieGenres.contains("War")
+
+var oldSetValue = movieGenres.remove("Action")
+print(oldSetValue ?? "No Value")
+
+for genre in movieGenres {
+    print(genre)
+}
+
+let movieGenres2: Set = ["SF", "War", "Fantasy"]
+
+movieGenres.union(movieGenres2)
+movieGenres.intersection(movieGenres2)
+movieGenres.subtracting(movieGenres2)
+movieGenres.symmetricDifference(movieGenres2)
