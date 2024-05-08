@@ -1,8 +1,9 @@
 
 enum TrafficLightColor: String {
-    case red
-    case yellow
-    case green
+    case red = "r"
+    case yellow = "y"
+    case green = "g"
+    
     func description() -> String {
         switch self {
         case .red:
