@@ -14,11 +14,12 @@ func serviceCharge(mealCost: Int) -> Int {
 let serviceChargeAmount = serviceCharge(mealCost: 50)
 print(serviceChargeAmount)
 
-func serviceCharge(forMealPrice mealCost: Int) -> Int {
+// custom argument label
+func serviceCharge(_ mealCost: Int) -> Int {
     return mealCost / 10
 }
 
-let serviceChargeAmount2 = serviceCharge(forMealPrice: 50)
+let serviceChargeAmount2 = serviceCharge(50)
 print(serviceChargeAmount2)
 
 
