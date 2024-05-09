@@ -1,3 +1,6 @@
+
+
+
 protocol CalorieCount {
     var calories: Int { get }
     func description() -> String
@@ -21,7 +24,12 @@ struct Fries: CalorieCount {
     }
 }
 
-enum Sauce: CalorieCount {
+enum Sauce {
+    case chili
+    case tomato
+}
+
+extension Sauce: CalorieCount {
     var calories: Int {
         switch self {
         case .chili:
@@ -32,22 +40,20 @@ enum Sauce: CalorieCount {
     }
     
     func description() -> String {
-        switch self {
-        case .chili:
-            return  "This chili sauce has \(calories) calories"
-        case .tomato:
-            return  "This tomato sauce has \(calories) calories"
-        }
+        return  "This sauce has \(calories) calories"
     }
-    
-    case chili
-    case tomato
 }
+let burger = Burger()
+let fries = Fries()
+let sauce = Sauce.tomato
 
-var fries = Fries()
+let foodArray: [CalorieCount] = [burger, fries, sauce]
 
-var burger = Burger()
-burger.calories = 1000
+var totalCalories = 0
+for food in foodArray {
+    totalCalories += food.calories
+}
+print(totalCalories)
 
 //enum TrafficLightColor: String {
 //    case red = "r"
