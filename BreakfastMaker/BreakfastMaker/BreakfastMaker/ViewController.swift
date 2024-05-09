@@ -20,9 +20,11 @@ class ViewController: UIViewController {
         Task {
             let startTime = Date().timeIntervalSince1970
             toastLabel.text = "Making toast..."
-            toastLabel.text = await makeToast()
+            async let tempToast = makeToast()
             eggLabel.text = "Poaching eggs..."
-            eggLabel.text = await poachEgg()
+            async let tempEgg = poachEgg()
+            await toastLabel.text = tempToast
+            await eggLabel.text = tempEgg
             sandwichLabel.text = makeSandwich()
             let endTime = Date().timeIntervalSince1970
             elapsedTimeLabel.text = "Elapsed time is \(((endTime - startTime) * 100).rounded() / 100) seconds"
