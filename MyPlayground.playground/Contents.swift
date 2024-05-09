@@ -1,24 +1,50 @@
+protocol CalorieCount {
+    var calories: Int { get }
+    func description() -> String
+}
 
-enum TrafficLightColor: String {
-    case red = "r"
-    case yellow = "y"
-    case green = "g"
+class Burger: CalorieCount {
+    var calories = 800
     
     func description() -> String {
-        switch self {
-        case .red:
-            return "red"
-        case .yellow:
-            return "yellow"
-        case .green:
-            return "green"
-        }
+        return "This burger has \(calories) calories"
     }
 }
 
-var trafficLightColor = TrafficLightColor.red
-print(trafficLightColor.description())
-print(trafficLightColor.rawValue)
+struct Fries: CalorieCount {
+    var calories = 500
+    func description() -> String {
+        return "These fries have \(calories) calories"
+    }
+}
+
+enum Sauce {
+    case chili
+    case tomato
+}
+
+
+
+//enum TrafficLightColor: String {
+//    case red = "r"
+//    case yellow = "y"
+//    case green = "g"
+//
+//    func description() -> String {
+//        switch self {
+//        case .red:
+//            return "red"
+//        case .yellow:
+//            return "yellow"
+//        case .green:
+//            return "green"
+//        }
+//    }
+//}
+//
+//var trafficLightColor = TrafficLightColor.red
+//print(trafficLightColor.description())
+//print(trafficLightColor.rawValue)
 
 //struct Reptile {
 //    var name: String
@@ -26,15 +52,15 @@ print(trafficLightColor.rawValue)
 //    var numberOfLegs: Int
 //    var breathesOxygen: Bool
 //    let hasFurOrHair: Bool = false
-//    
+//
 //    func makeSound() {
 //        print(sound)
 //    }
-//    
+//
 //    func description() -> String {
 //        return "Struct name: \(self.name) \nsound: \(self.sound) \nnumberOfLegs: \(self.numberOfLegs) \nbreathesOxygen: \(self.breathesOxygen)"
 //    }
-//    
+//
 //}
 //
 //var snake = Reptile(name: "Snake", sound: "Hiss", numberOfLegs: 0, breathesOxygen: true)
@@ -62,12 +88,12 @@ print(trafficLightColor.rawValue)
 //
 //class Mammal: Animal {
 //    let hasFurOrHair: Bool
-//    
+//
 //    init(hasFurOrHair: Bool, name: String, sound: String, numberOfLegs: Int) {
 //        self.hasFurOrHair = hasFurOrHair
 //        super.init(name: name, sound: sound, numberOfLegs: 4, breathesOxygen: true)
 //    }
-//    
+//
 //    override func description() -> String {
 //        return super.description() + "\nhasFurOrHair: \(self.hasFurOrHair)"
 //    }
