@@ -1,7 +1,7 @@
 import UIKit
 import PlaygroundSupport
 
-class TableViewExampleController: UIViewController, UITableViewDataSource {
+class TableViewExampleController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var tableView: UITableView?
     var journalEntries: [[String]] = [
         ["sun.max", "9 Apr 2023", "Nice weather today"],
@@ -23,5 +23,18 @@ class TableViewExampleController: UIViewController, UITableViewDataSource {
         cell.contentConfiguration = content
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            journalEntries.remove(at: indexPath.row)
+            tableView.reloadData()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedjournalEntry = journalEntries[indexPath.row]
+        print(selectedjournalEntry)
+    }
+    
 
 }
