@@ -22,8 +22,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // 아래 코드와 동일
         self.window = UIWindow(windowScene: windowScene)
         
+        let journalListViewController = JournalListViewController()
+        let firstNavigationController = UINavigationController(rootViewController: journalListViewController)
         
-        self.window?.rootViewController = JournalListViewController()
+        let mapViewController = MapViewController()
+        let secondNavigationController = UINavigationController(rootViewController: mapViewController)
+        
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [firstNavigationController, secondNavigationController]
+        
+        self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
     }
 
