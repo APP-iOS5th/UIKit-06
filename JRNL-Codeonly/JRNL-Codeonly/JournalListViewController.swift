@@ -47,6 +47,12 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.dequeueReusableCell(withIdentifier: "journalCell", for: indexPath)
     }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let journalDetailViewController = JournalDetailViewController()
+        show(journalDetailViewController, sender: self)
+    }
 
     
     // MARK: - Methods
