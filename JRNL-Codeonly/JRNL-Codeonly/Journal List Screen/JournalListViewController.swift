@@ -7,7 +7,7 @@
 
 import UIKit
 
-class JournalListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class JournalListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddJournalControllerDelegate {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         return tableView
@@ -68,7 +68,12 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
     @objc private func addJournal() {
         let addJournalViewController = AddJournalViewController()
         let navController = UINavigationController(rootViewController: addJournalViewController)
+        addJournalViewController.delegate = self
         present(navController, animated: true)
+    }
+    
+    public func saveJournalEntry(_ journalEntry: JournalEntry) {
+        print("TEST \(journalEntry.entryTitle)")
     }
 
 }
