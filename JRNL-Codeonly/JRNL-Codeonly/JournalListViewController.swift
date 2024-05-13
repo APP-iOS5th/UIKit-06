@@ -18,19 +18,28 @@ class JournalListViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         
-        let global = view.safeAreaLayoutGuide
-        
+        view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(tableView)
+        let global = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: global.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: global.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: global.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: global.bottomAnchor)
         ])
+        
+        navigationItem.title = "Journal"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: #selector(addJournal))
     }
 
+    @objc private func addJournal() {
+        let addJournalViewController = AddJournalViewController()
+        let navigationController = UINavigationController(rootViewController: addJournalViewController)
+        present(navigationController, animated: true)
+    }
 
 }
 
