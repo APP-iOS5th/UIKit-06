@@ -12,13 +12,18 @@ protocol AddJournalControllerDelegate: NSObject {
     func saveJournalEntry(_ journalEntry: JournalEntry)
 }
 
-class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
+class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate {
     weak var delegate: AddJournalControllerDelegate?
 //    의존 분리를 위해 직접 뷰 컨트롤러를 담기보다, 델리게이트 프로토콜을 이용한다.
 //    weak var journalListViewController: JournalListViewController?
     
     final let LABEL_VIEW_TAG = 1001
     
+    var locationSwitchIsOn = false {
+        didSet {
+            updateSaveButtonState()
+        }
+    }
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     
@@ -48,7 +53,7 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
         let switchComponent = UISwitch()
         switchComponent.isOn = false
         switchComponent.addTarget(self, action: #selector(valueChanged(sender:)), for: .valueChanged)
-        print(switchComponent.tag)
+
         let labelComponent = UILabel()
         labelComponent.text = "Get Location"
         labelComponent.tag = LABEL_VIEW_TAG
@@ -62,12 +67,14 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
     private lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Journal Title"
+        textField.addTarget(self, action: #selector(textChanged(textField:)), for: .editingChanged)
         return textField
     }()
     
     private lazy var bodyTextView: UITextView = {
         let textView = UITextView()
         textView.text = "Journal Body"
+        textView.delegate = self
         return textView
     }()
     
@@ -86,6 +93,8 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                             target: self,
                                                             action: #selector(save))
+        
+        navigationItem.rightBarButtonItem?.isEnabled = false
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
@@ -133,6 +142,36 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
+    // MARK: - UITextViewDelegate
+    func textViewDidChange(_ textView: UITextView) {
+        updateSaveButtonState()
+    }
+    
+    
+    // MARK: Methods
+    func updateSaveButtonState() {
+        if locationSwitchIsOn {
+            guard let title = titleTextField.text, !title.isEmpty,
+                  let body = bodyTextView.text, !body.isEmpty,
+                  let _ = currentLocation else {
+                navigationItem.rightBarButtonItem?.isEnabled = false
+                return
+            }
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        } else {
+            guard let title = titleTextField.text, !title.isEmpty,
+                  let body = bodyTextView.text, !body.isEmpty else {
+                navigationItem.rightBarButtonItem?.isEnabled = false
+                return
+            }
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+    }
+    
+    @objc func textChanged(textField: UITextField) {
+        updateSaveButtonState()
+    }
+    
     @objc func save() {
         guard let title = titleTextField.text, !title.isEmpty,
               let body = bodyTextView.text, !body.isEmpty else {
@@ -155,6 +194,7 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @objc func valueChanged(sender: UISwitch) {
+        locationSwitchIsOn = sender.isOn
         if sender.isOn {
             if let label = toggleView.viewWithTag(LABEL_VIEW_TAG) as? UILabel {
                 label.text = "Getting location..."
@@ -176,7 +216,7 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
             if let label = toggleView.viewWithTag(LABEL_VIEW_TAG) as? UILabel {
                 label.text = "Done"
             }
-            // TODO: updateButtonState
+            updateSaveButtonState()
         }
     }
     
