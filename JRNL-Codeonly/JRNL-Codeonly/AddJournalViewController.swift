@@ -92,14 +92,7 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UIT
                                target: self,
                                action: #selector(save))
     }()
-    
-    @objc func imageTapped() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.sourceType = .photoLibrary
-        present(imagePickerController, animated: true)
-    }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -176,7 +169,14 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UIT
     }
     
     
-    // MARK: Methods
+    // MARK: - Methods
+    @objc func imageTapped() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true)
+    }
+
     func updateSaveButtonState() {
         if locationSwitchIsOn {
             guard let title = titleTextField.text, !title.isEmpty,
