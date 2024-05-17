@@ -17,7 +17,7 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
 //    의존 분리를 위해 직접 뷰 컨트롤러를 담기보다, 델리게이트 프로토콜을 이용한다.
 //    weak var journalListViewController: JournalListViewController?
     
-    final let LABEL_VIEW_TAG = 99
+    final let LABEL_VIEW_TAG = 1001
     
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
@@ -48,9 +48,9 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
         let switchComponent = UISwitch()
         switchComponent.isOn = false
         switchComponent.addTarget(self, action: #selector(valueChanged(sender:)), for: .valueChanged)
-        
+        print(switchComponent.tag)
         let labelComponent = UILabel()
-        labelComponent.text = "Switch Label"
+        labelComponent.text = "Get Location"
         labelComponent.tag = LABEL_VIEW_TAG
         
         stackView.addArrangedSubview(switchComponent)
