@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddJournalEntryView: View {
+    @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     
     @State private var isGetLocationOn = false
@@ -44,6 +45,9 @@ struct AddJournalEntryView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
+                        let journalEntry = JournalEntry(rating: 3, entryTitle: entryTitle,
+                                                        entryBody: entryBody, latitude: nil, longitude: nil)
+                        modelContext.insert(journalEntry)
                         dismiss()
                     }
                 }
