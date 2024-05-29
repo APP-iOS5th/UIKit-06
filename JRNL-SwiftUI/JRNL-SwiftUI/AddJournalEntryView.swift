@@ -55,25 +55,14 @@ struct AddJournalEntryView: View {
                     TextEditor(text: $entryBody)
                 }
                 Section(header: Text("Photo")) {
-                    if let image = uiImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 300, height: 300)
-                            .padding()
-                            .onTapGesture {
-                                isShowPicker = true
-                            }
-                    } else {
-                        Image(systemName: "face.smiling")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 300, height: 300)
-                            .padding()
-                            .onTapGesture {
-                                isShowPicker = true
-                            }
-                    }
+                    Image(uiImage: uiImage ?? UIImage(systemName: "face.smiling")!)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300, height: 300)
+                        .padding()
+                        .onTapGesture {
+                            isShowPicker = true
+                        }
                 }
             }
             .navigationTitle("Add Journal Entry")
