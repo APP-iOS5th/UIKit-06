@@ -53,9 +53,23 @@ struct MapView: View {
     @State private var journalEntry: JournalEntry?
     @State private var isDetailViewActive = false
     
+    @StateObject private var locationManager = LocationManager()
+    
     var body: some View {
         NavigationStack {
             MapUIView(region: $region, annotations: $annotations, journalEntry: $journalEntry, isDetailViewActive: $isDetailViewActive)
+                .onAppear {
+                    locationManager.requestLocation()
+                }
+                .onReceive(locationManager.$location) { location in
+                    if let location = location {
+                        region = MKCoordinateRegion(center: location.coordinate,
+                                                    span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+                        annotations = []
+                    }
+                }
+                .navigationTitle("Map")
+                .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
